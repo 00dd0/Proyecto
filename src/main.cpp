@@ -48,8 +48,21 @@ int main(){
             numFichas(copia, tablero, turno, n);
             mostTablero(copia);
 
-            jug=0;
-            
+        if (turno == "b") {
+            std::cout << "Selecciona la ficha a mover: ";
+            std::cin >> eleccion;
+            if (!std::cin) { compValor(); continue; }
+            if (!seleccionarFicha(copia, eleccion, fi, fj)) continue;
+            std::cout << "Mover a (1=izq, 2=der): ";
+            std::cin >> mov;
+            if (!std::cin) { compValor(); continue; }
+            moverFicha(ni, nj, fi, fj, mov, tablero, turno);
+        } else {
+            turnoBot(tablero, turno);
+        }
+		if (contarFichas(tablero, turno) == 0) { std::cout<<"El jugador "; if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}std::cout<<" Gana";jug=0;}
+        if (!puedeMover(tablero, turno)) {std::cout << "\nEl jugador " << ((turno == "b") ? "blanco" : "negro")<< " no tiene movimientos disponibles.\n";std::cout << "¡Gana el jugador " << ((turno == "b") ? "negro" : "blanco") << "!\n";jug=0;}
+        turno = (turno == "b") ? "n" : "b";
         }
         while(jug==2){
             std::string copia[10][10];
