@@ -1,5 +1,5 @@
-#Include <iostream>
-#include "comoJugar.h
+#include <iostream>
+#include "comoJugar.h"
 
 void comoJugar() {
   std::cout << "=== INSTRUCCIONES DEL JUEGO DE DAMAS === \n";
