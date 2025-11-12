@@ -9,5 +9,6 @@ bool seleccionarFicha(std::string copia[10][10], int eleccion,int &fi, int &fj);
 bool moverFicha(int &ni,int &nj,int fi, int fj,int mov, std::string tablero[10][10], std::string turno);
 int contarFichas(std::string tablero[10][10], std::string turno);
 bool puedeMover(std::string tablero[10][10], std::string turno);
+void turnoBot(std::string tablero[10][10], std::string &turno);
 
 #endif
