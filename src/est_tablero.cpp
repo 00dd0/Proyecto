@@ -217,8 +217,8 @@ bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[1
             tablero[ni][nj] = ficha;
             tablero[fi][fj] = " ";
 
-            if (turno == "b" && ni == 9) tablero[ni][nj] = "B";
-            if (turno == "n" && ni == 0) tablero[ni][nj] = "N";
+            if (turno == "b" && ni == 9) {tablero[ni][nj] = "B";}
+            if (turno == "n" && ni == 0) {tablero[ni][nj] = "N";}
 
             std::cout << "Movimiento realizado correctamente.\n";
             return true;
@@ -235,14 +235,14 @@ bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[1
             tablero[fi][fj] = " ";
             tablero[ni][nj] = " ";
 
-            if (turno == "b" && ci == 9) tablero[ci][cj] = "B";
-            if (turno == "n" && ci == 0) tablero[ci][cj] = "N";
+            if (turno == "b" && ci == 9) {tablero[ci][cj] = "B";}
+            if (turno == "n" && ci == 0) {tablero[ci][cj] = "N";}
 
             std::cout << "¡Captura realizada!\n";
             return true;
         }
 
-        std::cout << "Movimiento inválido.\n";
+        std::cout << "Movimiento invalido.\n";
         return false;
     }
 
@@ -253,7 +253,7 @@ bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[1
             case 2: dirI = -1; dirJ = 1;  break;
             case 3: dirI = 1;  dirJ = -1; break; 
             case 4: dirI = 1;  dirJ = 1;  break; 
-            default: std::cout << "Dirección inválida.\n"; return false;
+            default: std::cout << "Direccion invalida.\n"; return false;
         }
 
         int pasoI = fi + dirI;
@@ -286,8 +286,8 @@ bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[1
             pasoI = fi + dirI;
             pasoJ = fj + dirJ;
             while (pasoI >= 0 && pasoI < 10 && pasoJ >= 0 && pasoJ < 10) {
-                if (tablero[pasoI][pasoJ] != " ") break;
-                std::cout << "Mover a (" << pasoI << "," << pasoJ << ")? (1=Sí,0=No): ";
+                if (tablero[pasoI][pasoJ] != " ") {break;}
+                std::cout << "Mover a (" << pasoI << "," << pasoJ << ")? (1=Si,0=No): ";
                 int conf; std::cin >> conf;
                 if (conf == 1) {
                     tablero[pasoI][pasoJ] = ficha;
@@ -300,7 +300,7 @@ bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[1
             }
         }
 
-        std::cout << "Movimiento inválido.\n";
+        std::cout << "Movimiento invalido.\n";
         return false;
     }
 }
