@@ -1,7 +1,10 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
+#include <cmath>
 #include "est_tablero.h"
+
 
 void turnoBot(std::string tablero[10][10], std::string &turno) {
     srand(time(0)); 
@@ -55,7 +58,7 @@ void turnoBot(std::string tablero[10][10], std::string &turno) {
     }
 
     if (!movExitoso) {
-        std::cout << "El bot no encontró movimientos válidos.\n";
+        std::cout << "El bot no encontro movimientos validos.\n";
     } else {
         std::cout << "El bot ha realizado su jugada.\n";
     }
@@ -124,9 +127,6 @@ bool seleccionarFicha(std::string copia[10][10], int eleccion,int &fi, int &fj) 
 
     
 }
-#include <string>
-#include <cmath>
-#include <iostream>
 
 bool puedeMover(std::string tablero[10][10], std::string turno) {
     
