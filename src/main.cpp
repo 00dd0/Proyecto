@@ -43,6 +43,10 @@ int main(){
             v=false;
         }
         while(jug==1){
+            std::string copia[10][10];
+            copiarTablero(copia, tablero);
+            numFichas(copia, tablero, turno, n);
+            mostTablero(copia);
             std::cout<<"Turno actual: ";
             if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}
             std::cout << "Seleccione la ficha a mover: ";std::cin >> eleccion;
@@ -92,7 +96,7 @@ int main(){
         }
     }
     if(op==2){
-      mostrarHistorial();
+        mostrarHistorial();
     }
     if(op==3){
         comoJugar();
