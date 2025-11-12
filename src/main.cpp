@@ -3,6 +3,7 @@
 #include "correctoValor.h"
 #include "est_tablero.h"
 #include "Historial.h"
+#include "comoJugar.h"
 
 int main(){
     bool salir = false;
@@ -76,7 +77,7 @@ int main(){
       mostrarHistorial();
     }
     if(op==3){
-        //comoJugar();
+        comoJugar();
     }
     if(op==4){
         salir=true;
