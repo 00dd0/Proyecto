@@ -1,23 +1,29 @@
 #include <iostream>
 #include "est_tablero.h"
+#include <string>
 
-void copiarTablero(std::string copia[10][10], std::string tablero[10][10]){
-    for (int i = 0; i < 10; i++){
-        for (int j = 0; j < 10; j++){
+void copiarTablero(std::string copia[10][10], std::string tablero[10][10]) {
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
             copia[i][j] = tablero[i][j];
         }
     }
 }
 
-void numFichas(std::string copia[10][10], std::string tablero[10][10], std::string &turno, int &n){
-    n=1;
+void numFichas(std::string copia[10][10], std::string tablero[10][10], std::string& turno, int& n) {
+    n = 1;
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
-            if (turno ==  tablero[i][j])
-                {copia[i][j] = std::to_string(n++);}
+            // fichas normales y reinas del turno actual
+            if ((turno == "b" && (tablero[i][j] == "b" || tablero[i][j] == "B")) ||
+                (turno == "n" && (tablero[i][j] == "n" || tablero[i][j] == "N")))
+            {
+                copia[i][j] = std::to_string(n++);
             }
         }
+    }
 }
+
 int contarFichas(std::string tablero[10][10], std::string turno) {
     int n = 0;
     for (int i = 0; i < 10; i++) {
@@ -31,18 +37,18 @@ int contarFichas(std::string tablero[10][10], std::string turno) {
     return n;
 }
 
-void mostTablero(std::string copia[10][10]){
+void mostTablero(std::string copia[10][10]) {
     for (int i = 0; i < 10; i++) {
-            std::cout << "----------------------------------------\n";
-            for (int j = 0; j < 10; j++) {
-                if (j > 0) {std::cout << "|";}
-                std::cout << " " << copia[i][j] << " ";
-            }
-            std::cout << "\n";
+        std::cout << "----------------------------------------\n";
+        for (int j = 0; j < 10; j++) {
+            if (j > 0) { std::cout << "|"; }
+            std::cout << " " << copia[i][j] << " ";
         }
+        std::cout << "\n";
+    }
 }
 
-bool seleccionarFicha(std::string copia[10][10], int eleccion,int &fi, int &fj) {
+bool seleccionarFicha(std::string copia[10][10], int eleccion, int& fi, int& fj) {
     fi = -1, fj = -1;
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
@@ -59,36 +65,36 @@ bool seleccionarFicha(std::string copia[10][10], int eleccion,int &fi, int &fj) 
     std::cout << "Ficha no valida.\n";
     return false;
 
-    
+
 }
 #include <string>
 #include <cmath>
 #include <iostream>
 
 bool puedeMover(std::string tablero[10][10], std::string turno) {
-    
+
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
 
             std::string ficha = tablero[i][j];
 
-            
+
             if ((turno == "b" && (ficha == "b" || ficha == "B")) ||
                 (turno == "n" && (ficha == "n" || ficha == "N"))) {
 
-                
+
                 if (ficha == "b" || ficha == "n") {
-                    int dir = (ficha == "b") ? 1 : -1; 
+                    int dir = (ficha == "b") ? 1 : -1;
 
                     for (int dj : {-1, 1}) {
                         int ni = i + dir;
                         int nj = j + dj;
                         if (ni >= 0 && ni < 10 && nj >= 0 && nj < 10 && tablero[ni][nj] == " ") {
-                            return true; 
+                            return true;
                         }
                     }
 
-                    
+
                     for (int dj : {-1, 1}) {
                         int ni = i + 2 * dir;
                         int nj = j + 2 * dj;
@@ -97,15 +103,15 @@ bool puedeMover(std::string tablero[10][10], std::string turno) {
                         if (ni >= 0 && ni < 10 && nj >= 0 && nj < 10 &&
                             tablero[ni][nj] == " " &&
                             ((turno == "b" && (tablero[mi][mj] == "n" || tablero[mi][mj] == "N")) ||
-                             (turno == "n" && (tablero[mi][mj] == "b" || tablero[mi][mj] == "B")))) {
-                            return true; 
+                                (turno == "n" && (tablero[mi][mj] == "b" || tablero[mi][mj] == "B")))) {
+                            return true;
                         }
                     }
                 }
 
                 if (ficha == "B" || ficha == "N") {
-                    int dirs[4][2] = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
-                    for (auto &d : dirs) {
+                    int dirs[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
+                    for (auto& d : dirs) {
                         int di = d[0], dj = d[1];
                         int ni = i + di, nj = j + dj;
 
@@ -133,7 +139,7 @@ bool puedeMover(std::string tablero[10][10], std::string turno) {
     return false;
 }
 
-bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[10][10], std::string turno) {
+bool moverFicha(int& ni, int& nj, int fi, int fj, int mov, std::string tablero[10][10], std::string turno) {
     std::string ficha = tablero[fi][fj];
     bool esReina = (ficha == "B" || ficha == "N");
     std::string oponente = (turno == "b") ? "n" : "b";
@@ -186,11 +192,11 @@ bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[1
     else {
         int dirI = 0, dirJ = 0;
         switch (mov) {
-            case 1: dirI = -1; dirJ = -1; break; 
-            case 2: dirI = -1; dirJ = 1;  break;
-            case 3: dirI = 1;  dirJ = -1; break; 
-            case 4: dirI = 1;  dirJ = 1;  break; 
-            default: std::cout << "Dirección inválida.\n"; return false;
+        case 1: dirI = -1; dirJ = -1; break;
+        case 2: dirI = -1; dirJ = 1;  break;
+        case 3: dirI = 1;  dirJ = -1; break;
+        case 4: dirI = 1;  dirJ = 1;  break;
+        default: std::cout << "Dirección inválida.\n"; return false;
         }
 
         int pasoI = fi + dirI;
@@ -207,13 +213,15 @@ bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[1
                     std::cout << "¡Captura realizada por la reina!\n";
                     return true;
                 }
-            } else if (tablero[pasoI][pasoJ] == oponente || tablero[pasoI][pasoJ] == oponenteReina) {
-                if (captura) break; 
+            }
+            else if (tablero[pasoI][pasoJ] == oponente || tablero[pasoI][pasoJ] == oponenteReina) {
+                if (captura) break;
                 captura = true;
                 capI = pasoI;
                 capJ = pasoJ;
-            } else {
-                break; 
+            }
+            else {
+                break;
             }
             pasoI += dirI;
             pasoJ += dirJ;
