@@ -2,7 +2,7 @@
 #include <string>
 #include "correctoValor.h"
 #include "est_tablero.h"
-
+#include "Historial.h"
 
 int main(){
     bool salir = false;
@@ -73,7 +73,7 @@ int main(){
         }
     }
     if(op==2){
-       // hustorico();
+      mostrarHistorial();
     }
     if(op==3){
         //comoJugar();
