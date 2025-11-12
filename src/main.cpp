@@ -43,11 +43,16 @@ int main(){
             v=false;
         }
         while(jug==1){
-            std::string copia[10][10];
-            copiarTablero(copia, tablero);
-            numFichas(copia, tablero, turno, n);
-            mostTablero(copia);
-
+            std::cout<<"Turno actual: ";
+            if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}
+            std::cout << "Seleccione la ficha a mover: ";std::cin >> eleccion;
+            if (!std::cin) { compValor(); continue; }
+            if(!seleccionarFicha(copia, eleccion, fi, fj)){continue;}
+            if(turno=="b"||turno=="n"){std::cout << "Mover 1(izquierda) 2(derecha): ";}
+            else{std::cout << "Mover \n1(izquierda superior)\n2(derecha superior)\n3(izquierda inferior)\n4(derecha inferior)";}
+            std::cin >> mov;
+            if (!std::cin) { compValor(); continue; }
+            if(!moverFicha(ni, nj, fi,  fj, mov, tablero, turno)){continue;}
         if (turno == "b") {
             std::cout << "Selecciona la ficha a mover: ";
             std::cin >> eleccion;
