@@ -1,5 +1,5 @@
-#ifndef HISTORIAL_h
-#define HISTORIAL_h
+#ifndef HISTORIAL_H
+#define HISTORIAL_H
 
 #include <string>
 
