@@ -32,6 +32,7 @@ int main(){
 	    {" ", "n", " ", "n", " ", "n", " ", "n", " ", "n"},
 	    {"n", " ", "n", " ", "n", " ", "n", " ", "n", " "}
 	    };
+        
 	    std::string turno = "b";
         int fi = 0, fj =0,ni, nj;
         bool v=true;
@@ -49,13 +50,13 @@ int main(){
             mostTablero(copia);
             
         if (turno == "b") {
-            std::cout<<"Turno actual: ";
-            if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}
+            std::cout<<"Turno actual: "; std::cout<<"BLANCAS\n";
             std::cout << "Seleccione la ficha a mover: ";std::cin >> eleccion;
             if (!std::cin) { compValor(); continue; }
             if(!seleccionarFicha(copia, eleccion, fi, fj)){continue;}
-            if(turno=="b"||turno=="n"){std::cout << "Mover 1(izquierda) 2(derecha): ";}
-            else{std::cout << "Mover \n1(izquierda superior)\n2(derecha superior)\n3(izquierda inferior)\n4(derecha inferior)";}
+            std::string fichaSel = tablero[fi][fj];
+            if((turno == "b" && fichaSel == "B") || (turno == "n" && fichaSel == "N")){std::cout << "Mover \n1(izquierda superior)\n2(derecha superior)\n3(izquierda inferior)\n4(derecha inferior)";}
+            else if(turno=="b"||turno=="n"){std::cout << "Mover 1(izquierda) 2(derecha): ";}
             std::cin >> mov;
             if (!std::cin) { compValor(); continue; }
             if(!moverFicha(ni, nj, fi,  fj, mov, tablero, turno)){continue;}
@@ -64,8 +65,12 @@ int main(){
         }
 		if (contarFichas(tablero, turno) == 0) { std::cout<<"El jugador "; if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}std::cout<<" Gana";jug=0;}
         if (!puedeMover(tablero, turno)) {std::cout << "\nEl jugador " << ((turno == "b") ? "blanco" : "negro")<< " no tiene movimientos disponibles.\n";std::cout << "¡Gana el jugador " << ((turno == "b") ? "negro" : "blanco") << "!\n";jug=0;}
-        turno = (turno == "b") ? "n" : "b";
+        if(soloReinas(tablero)){std::cout<<"Empate";jug=0;}
+        std::string ganador = (turno == "b") ? "BLANCAS": "NEGRAS";
+        
         }
+        turno = (turno == "b") ? "n" : "b";
+        
         while(jug==2){
             std::string copia[10][10];
             copiarTablero(copia, tablero);
@@ -76,14 +81,16 @@ int main(){
             std::cout << "Seleccione la ficha a mover: ";std::cin >> eleccion;
             if (!std::cin) { compValor(); continue; }
             if(!seleccionarFicha(copia, eleccion, fi, fj)){continue;}
-            if(turno=="b"||turno=="n"){std::cout << "Mover 1(izquierda) 2(derecha): ";}
-            else{std::cout << "Mover \n1(izquierda superior)\n2(derecha superior)\n3(izquierda inferior)\n4(derecha inferior)";}
+            std::string fichaSel = tablero[fi][fj];
+            fichaSel = (fichaSel);
+            if((turno == "b" && fichaSel == "B") || (turno == "n" && fichaSel == "N")){std::cout << "Mover \n1(izquierda superior)\n2(derecha superior)\n3(izquierda inferior)\n4(derecha inferior)";}
+            else if(turno=="b"||turno=="n"){std::cout << "Mover 1(izquierda) 2(derecha): ";}
             std::cin >> mov;
             if (!std::cin) { compValor(); continue; }
             if(!moverFicha(ni, nj, fi,  fj, mov, tablero, turno)){continue;}
             if (contarFichas(tablero, turno) == 0) { std::cout<<"El jugador "; if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}std::cout<<" Gana";jug=0;}
             if (!puedeMover(tablero, turno)) {std::cout << "\nEl jugador " << ((turno == "b") ? "blanco" : "negro")<< " no tiene movimientos disponibles.\n";std::cout << "¡Gana el jugador " << ((turno == "b") ? "negro" : "blanco") << "!\n";jug=0;}
-
+            if(soloReinas(tablero)){std::cout<<"Empate";jug=0;}
             turno = (turno == "b") ? "n" : "b";
             
         }
@@ -97,7 +104,7 @@ int main(){
     if(op==4){
         salir=true;
     }
-    }
-    
     return 0;
 }
+}
+    
