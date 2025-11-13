@@ -32,7 +32,8 @@ int main(){
 	    {" ", "n", " ", "n", " ", "n", " ", "n", " ", "n"},
 	    {"n", " ", "n", " ", "n", " ", "n", " ", "n", " "}
 	    };
-        
+        time_t inicio = time(0);
+        int movimientos = 0;
 	    std::string turno = "b";
         int fi = 0, fj =0,ni, nj;
         bool v=true;
@@ -44,6 +45,19 @@ int main(){
             v=false;
         }
         while(jug==1){
+            bool quedanBlancas = false;
+            bool quedanNegras = false;
+
+            for(int i = 0; i < 10; i++){
+                for(int j = 0; j < 10; j++){
+                    if(tablero[i][j] == "b" || tablero[i][j] == "B") quedanBlancas = true;
+                    if(tablero[i][j] == "n" || tablero[i][j] == "N") quedanNegras = true;
+                }
+            }
+
+            if(!quedanBlancas) { std::cout << "\n¡Las NEGRAS han ganado!"; jug = 0; jug=0;}
+            if(!quedanNegras) { std::cout << "\n¡Las BLANCAS han ganado!"; jug = 0; jug=0;}
+            
             std::string copia[10][10];
             copiarTablero(copia, tablero);
             numFichas(copia, tablero, turno, n);
@@ -60,18 +74,40 @@ int main(){
             std::cin >> mov;
             if (!std::cin) { compValor(); continue; }
             if(!moverFicha(ni, nj, fi,  fj, mov, tablero, turno)){continue;}
+            movimientos++;
         } else {
             turnoBot(tablero, turno);
         }
-		if (contarFichas(tablero, turno) == 0) { std::cout<<"El jugador "; if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}std::cout<<" Gana";jug=0;}
+		if (contarFichas(tablero, turno) == 0) { std::cout<<"El jugador "; if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}std::cout<<" Gana";jug=0;
+        time_t fin = time(0);
+        int duracion = difftime(fin, inicio);
+        std::string ganador = (turno == "b") ? "NEGRAS" : "BLANCAS";
+        guardarHistorial(ganador, movimientos, duracion);
+    }
         if (!puedeMover(tablero, turno)) {std::cout << "\nEl jugador " << ((turno == "b") ? "blanco" : "negro")<< " no tiene movimientos disponibles.\n";std::cout << "¡Gana el jugador " << ((turno == "b") ? "negro" : "blanco") << "!\n";jug=0;}
-        if(soloReinas(tablero)){std::cout<<"Empate";jug=0;}
+        if(soloReinas(tablero)){std::cout<<"Empate";jug=0;
+        time_t fin = time (0);
+        int duracion = difftime(fin, inicio);
+        guardarHistorial("empate", movimientos, duracion);
+        }
         std::string ganador = (turno == "b") ? "BLANCAS": "NEGRAS";
         
         }
         turno = (turno == "b") ? "n" : "b";
         
         while(jug==2){
+            bool quedanBlancas = false;
+            bool quedanNegras = false;
+
+            for(int i = 0; i < 10; i++){
+                for(int j = 0; j < 10; j++){
+                    if(tablero[i][j] == "b" || tablero[i][j] == "B") quedanBlancas = true;
+                    if(tablero[i][j] == "n" || tablero[i][j] == "N") quedanNegras = true;
+                }
+            }
+
+            if(!quedanBlancas) { std::cout << "\n¡Las NEGRAS han ganado!"; jug = 0; jug=0;}
+            if(!quedanNegras) { std::cout << "\n¡Las BLANCAS han ganado!"; jug = 0; jug=0;}
             std::string copia[10][10];
             copiarTablero(copia, tablero);
             numFichas(copia, tablero, turno, n);
@@ -88,8 +124,14 @@ int main(){
             std::cin >> mov;
             if (!std::cin) { compValor(); continue; }
             if(!moverFicha(ni, nj, fi,  fj, mov, tablero, turno)){continue;}
+            movimientos++;
             if (contarFichas(tablero, turno) == 0) { std::cout<<"El jugador "; if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}std::cout<<" Gana";jug=0;}
-            if (!puedeMover(tablero, turno)) {std::cout << "\nEl jugador " << ((turno == "b") ? "blanco" : "negro")<< " no tiene movimientos disponibles.\n";std::cout << "¡Gana el jugador " << ((turno == "b") ? "negro" : "blanco") << "!\n";jug=0;}
+            if (!puedeMover(tablero, turno)) {std::cout << "\nEl jugador " << ((turno == "b") ? "blanco" : "negro")<< " no tiene movimientos disponibles.\n";std::cout << "¡Gana el jugador " << ((turno == "b") ? "negro" : "blanco") << "!\n";jug=0;
+            time_t fin = time(0);
+            int duracion = difftime (fin,inicio);
+            std::string ganador = (turno == "b") ? "NEGRAS" : "BLANCAS";
+            guardarHistorial(ganador, movimientos, duracion);
+            } 
             if(soloReinas(tablero)){std::cout<<"Empate";jug=0;}
             turno = (turno == "b") ? "n" : "b";
             
