@@ -98,16 +98,31 @@ int contarFichas(std::string tablero[10][10], std::string turno) {
 }
 
 void mostTablero(std::string copia[10][10]){
-    for (int i = 0; i < 10; i++) {
-            std::cout << "----------------------------------------\n";
-            for (int j = 0; j < 10; j++) {
-                if (j > 0) {std::cout << "|";}
-                std::cout << " " << copia[i][j] << " ";
-            }
-            std::cout << "\n";
-        }
-}
+    std::cout << "     ";
+    for(int j = 0; j < 10; j++){
+        std::cout << j+1 << "   ";
+    }
+    std::cout << "\n";
 
+    for(int i = 0; i < 10; i++){
+        std::cout << "   +";
+        for(int j = 0; j < 10; j++) std::cout << "---+";
+        std::cout << "\n";
+
+        std::cout << i+1 << "  |";
+        for(int j = 0; j < 10; j++){
+            
+            std::string celda = copia[i][j];
+            if(celda == " ") celda = " "; 
+            std::cout << " " << celda << " |";
+        }
+        std::cout << "\n";
+    }
+
+    std::cout << "   +";
+    for(int j = 0; j < 10; j++) std::cout << "---+";
+    std::cout << "\n";
+}
 bool seleccionarFicha(std::string copia[10][10], int eleccion,int &fi, int &fj) {
     fi = -1, fj = -1;
     for (int i = 0; i < 10; i++) {
