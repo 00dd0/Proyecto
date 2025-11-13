@@ -79,7 +79,7 @@ void numFichas(std::string copia[10][10], std::string tablero[10][10], std::stri
     n=1;
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
-            if (turno ==  tablero[i][j])
+            if (tablero[i][j]==turno||(turno == "b"&& tablero[i][j]=="B")||(turno == "n"&& tablero[i][j]=="N"))
                 {copia[i][j] = std::to_string(n++);}
             }
         }
@@ -261,6 +261,13 @@ bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[1
         bool captura = false;
         int capI = -1, capJ = -1;
 
+         if (pasoI >= 0 && pasoI < 10 && pasoJ >= 0 && pasoJ < 10 && tablero[pasoI][pasoJ] == " ") {
+        tablero[pasoI][pasoJ] = ficha;
+        tablero[fi][fj] = " ";
+        std::cout << "Movimiento corto de reina realizado.\n";
+        return true;
+    }
+
         while (pasoI >= 0 && pasoI < 10 && pasoJ >= 0 && pasoJ < 10) {
             if (tablero[pasoI][pasoJ] == " ") {
                 if (captura) {
@@ -303,4 +310,22 @@ bool moverFicha(int &ni, int &nj, int fi, int fj, int mov, std::string tablero[1
         std::cout << "Movimiento invalido.\n";
         return false;
     }
+}
+bool soloReinas(std::string tablero[10][10]) {
+    int totalFichas = 0;
+    int reinas = 0;
+
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            std::string ficha = tablero[i][j];
+            if (ficha == "b" || ficha == "n" || ficha == "B" || ficha == "N") {
+                totalFichas++;
+                if (ficha == "B" || ficha == "N") {
+                    reinas++;
+                }
+            }
+        }
+    }
+
+    return (totalFichas > 0 && totalFichas == reinas);
 }
