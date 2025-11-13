@@ -47,6 +47,8 @@ int main(){
             copiarTablero(copia, tablero);
             numFichas(copia, tablero, turno, n);
             mostTablero(copia);
+            
+        if (turno == "b") {
             std::cout<<"Turno actual: ";
             if(turno=="b"){std::cout<<"BLANCAS\n";}else{std::cout<<"NEGRAS\n";}
             std::cout << "Seleccione la ficha a mover: ";std::cin >> eleccion;
@@ -57,15 +59,6 @@ int main(){
             std::cin >> mov;
             if (!std::cin) { compValor(); continue; }
             if(!moverFicha(ni, nj, fi,  fj, mov, tablero, turno)){continue;}
-        if (turno == "b") {
-            std::cout << "Selecciona la ficha a mover: ";
-            std::cin >> eleccion;
-            if (!std::cin) { compValor(); continue; }
-            if (!seleccionarFicha(copia, eleccion, fi, fj)) continue;
-            std::cout << "Mover a (1=izq, 2=der): ";
-            std::cin >> mov;
-            if (!std::cin) { compValor(); continue; }
-            moverFicha(ni, nj, fi, fj, mov, tablero, turno);
         } else {
             turnoBot(tablero, turno);
         }
